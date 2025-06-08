@@ -1,13 +1,29 @@
-import { Button, Group, useMantineColorScheme } from '@mantine/core';
-
+import { ActionIcon ,Menu,useMantineColorScheme } from '@mantine/core';
+import { IconBrightnessDownFilled, IconBrightnessUpFilled, IconDeviceDesktop } from '@tabler/icons-react';
 export function ColorSchemeToggle() {
-  const { setColorScheme } = useMantineColorScheme();
+  const { colorScheme,setColorScheme } = useMantineColorScheme();
 
   return (
-    <Group justify="center" mt="xl">
-      <Button onClick={() => setColorScheme('light')}>Light</Button>
-      <Button onClick={() => setColorScheme('dark')}>Dark</Button>
-      <Button onClick={() => setColorScheme('auto')}>Auto</Button>
-    </Group>
+    <Menu>
+      <Menu.Target>
+        <ActionIcon variant='subtle' color='#969696'>
+          {colorScheme == 'light' ? <IconBrightnessUpFilled size={16}/> : <IconBrightnessDownFilled size={100}/>}
+        </ActionIcon>
+      </Menu.Target>
+
+      <Menu.Dropdown>
+        <Menu.Label>Select theme</Menu.Label>
+        <Menu.Item leftSection={<IconBrightnessUpFilled size={16} />} onClick={() => setColorScheme('light')}>
+          Light
+        </Menu.Item>
+        <Menu.Item leftSection={<IconBrightnessDownFilled size={16}/>} onClick={() => setColorScheme('dark')}>
+          Dark
+        </Menu.Item>
+        <Menu.Item leftSection={<IconDeviceDesktop size={16}/>} onClick={() => setColorScheme('auto')}>
+          System
+        </Menu.Item>
+      </Menu.Dropdown>
+    </Menu>
+    
   );
 }
